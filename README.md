@@ -2,19 +2,45 @@
 
 ## Table of Contents
 
+- [Description](#description)
 - [Instructions](#instructions)
-- [Contributing](#contributing)
+
+## Description
+This arcade game was made for Udacity Frontend Nanodegree Program.
+We were given a github base project to start with.
 
 ## Instructions
 
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
+For better instructions guidance, in the next table we show images for in game objects:
 
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
+Image       |   Description
+------------|---------------
+![player](images/readme/char-boy.jpg) | Player
+![enemy](images/readme/enemy-bug.jpg) | Enemy
+![heart](images/readme/heart.jpg) | Heart
+![grass area](images/readme/grass-block.jpg) | Grass Area
+![stone area](images/readme/stone-block.jpg) | Stone Area
+![green gem](images/readme/gem-green.jpg) | Green Gem
+![blue gem](images/readme/gem-blue.jpg) | Blue Gem
+![orange gem](images/readme/gem-orange.jpg) | Orange Gem
+![star](images/readme/star.jpg) | Star
 
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
+### Starting game
+The game starts with the player located in the grass area.
+A player has initialy five hearts for his life.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+### How to Play
+In the stone area there are enemies moving from one side the the other.
+The player is given a limited time to catch gems, stars or hearts in the stone area of the game, while avoiding enemies.
+In order to move in game, the player can use the up, down, left and right arrows of keyboard.
+If one enemy catches the player, he will lose an heart of his life and be moved to the initial position where he started the game.
 
-## Contributing
+### Rewards
+- player catches a gem: the scoreboard is increased.
+- player catches a star: the game time limit increases.
+- player catches a heart: player life increases in one heart if it's not in the maximum amount of five.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+### Game ending conditions
+- Time limit reaches zero;
+- Player looses all hearts of his life;
+- Scoreboard reach the maximum of 100 points.

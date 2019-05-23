@@ -42,20 +42,40 @@ Enemy.prototype.render = function() {
 class Player {
     constructor(x, y) {
         this.x = 201;
-        this.y = 320;
+        this.y = 301;
         this.sprite = 'images/char-boy.png';
     }
 
-    update(dt) {
-
-    }
+    update(dt) {}
 
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    handleInput() {
+    handleInput(keyCode) {
+        const moveFactor = 11;
+        switch (keyCode) {
+            case "up":
+                this.y -= moveFactor;
+                //this.update;
+                break;
+            case "down":
+                this.y += moveFactor;
+                //this.update;
+                break;
+            case "left":
+                this.x -= moveFactor;
+                //this.update;
+                break;
+            case "right":
+                this.x += moveFactor;
+                //this.update;
+                break;
+
+            default:
+                break;
+        }
 
     }
 }
