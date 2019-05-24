@@ -7,7 +7,7 @@
 
 ## Description
 This arcade game was made for Udacity Frontend Nanodegree Program.
-We were given a github base project to start with.
+We were given a GitHub base project to start with.
 
 ## Instructions
 
@@ -27,13 +27,13 @@ Image       |   Description
 
 ### Starting game
 The game starts with the player located in the grass area.
-A player has initialy five hearts for his life.
+A player has initially five hearts for his life.
 
 ### How to Play
-In the stone area there are enemies moving from one side the the other.
+In the stone area there are enemies moving from one side the other.
 The player is given a limited time to catch gems, stars or hearts in the stone area of the game, while avoiding enemies.
 In order to move in game, the player can use the up, down, left and right arrows of keyboard.
-If one enemy catches the player, he will lose an heart of his life and be moved to the initial position where he started the game.
+If one enemy catches the player, he will lose a heart of his life and be moved to the initial position where he started the game.
 
 ### Rewards
 - player catches a gem: the scoreboard is increased.
@@ -42,5 +42,5 @@ If one enemy catches the player, he will lose an heart of his life and be moved 
 
 ### Game ending conditions
 - Time limit reaches zero;
-- Player looses all hearts of his life;
+- Player loses all hearts of his life;
 - Scoreboard reach the maximum of 100 points.
