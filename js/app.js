@@ -5,9 +5,20 @@
 const speedValues = [2, 3, 4];
 
 /**
- * Array for Y values of enemy placement on game field
+ * Array for Y values of enemy and gems placement on game field
  */
-const fieldY = [61, 144, 227, 310];
+const fieldY = [111, 194, 277, 360];
+
+
+/**
+ * Array for X values of gems placement on game field
+ */
+const fieldX = [10, 110, 220, 315, 430];
+
+/**
+ * Array for gem images
+ */
+const gemImages = ['images/gem-green.png', 'images/gem-blue.png', 'images/gem-orange.png']
 
 /**
  * Enemy class for player to avoid
@@ -34,7 +45,7 @@ class Enemy {
     }
 
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 70, 100);
     }
 }
 
@@ -44,8 +55,8 @@ class Enemy {
 class Player {
     constructor(x, y) {
         // initial position
-        this.x = 202;
-        this.y = 403;
+        this.x = 218;
+        this.y = 442;
         this.sprite = 'images/char-boy.png';
     }
 
@@ -53,37 +64,70 @@ class Player {
 
 
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 70, 110);
     }
 
     handleInput(moveX, moveY) {
-        const moveFactorY = 83;
-        const moveFactorX = 101;
+        const moveFactorY = 5;
+        const moveFactorX = 7;
         this.y += moveY * moveFactorY;
         if (this.y <= -10) {
             this.y = -10;
         }
-        if (this.y >= 403) {
-            this.y = 403;
+        if (this.y >= 473) {
+            this.y = 473;
         }
         this.x += moveX * moveFactorX;
         if (this.x <= 0) {
             this.x = 0;
         }
-        if (this.x >= 404) {
-            this.x = 404;
+        if (this.x >= 454) {
+            this.x = 454;
         }
         console.log(`${this.x} ${this.y}`);
 
     }
 }
 
+
+let counter = 0;
+
+class Gem {
+    constructor() {
+        this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
+        this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
+        this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
+    }
+
+    update(dt) {
+        counter++;
+        if (counter === 300) {
+            this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
+            this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
+            this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
+            console.log(`${this.x} ${this.y}`);
+
+            counter = 0;
+        }
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 70, 100);
+    }
+
+}
+
+
 // Objects instantiation
 
 // Place all enemy objects in an array called allEnemies
 const allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy];
+
 // Place the player object in a variable called player
 const player = new Player;
+
+// Place gem in game field
+const gem = new Gem;
 
 
 // Arrow key movement.
@@ -100,7 +144,7 @@ KeyboardController({
     40: function() {
         player.handleInput(0, 1);
     }
-}, 250);
+}, 15);
 
 
 /**
