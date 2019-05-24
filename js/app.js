@@ -71,18 +71,18 @@ class Player {
         const moveFactorY = 5;
         const moveFactorX = 7;
         this.y += moveY * moveFactorY;
-        if (this.y <= -10) {
-            this.y = -10;
+        if (this.y <= 10) {
+            this.y = 10;
         }
-        if (this.y >= 473) {
-            this.y = 473;
+        if (this.y >= 455) {
+            this.y = 455;
         }
         this.x += moveX * moveFactorX;
-        if (this.x <= 0) {
-            this.x = 0;
+        if (this.x <= -10) {
+            this.x = -10;
         }
-        if (this.x >= 454) {
-            this.x = 454;
+        if (this.x >= 445) {
+            this.x = 445;
         }
         console.log(`${this.x} ${this.y}`);
 
@@ -90,29 +90,43 @@ class Player {
 }
 
 
-let counter = 0;
-
 class Gem {
     constructor() {
         this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
         this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
         this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
+        this.counter = 0;
     }
 
     update(dt) {
-        counter++;
-        if (counter === 300) {
+        this.counter++;
+        if (this.counter === 300) {
             this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
             this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
             this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
-            console.log(`${this.x} ${this.y}`);
+            //console.log(`${this.x} ${this.y}`);
 
-            counter = 0;
+            this.counter = 0;
         }
     }
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 70, 100);
+    }
+
+}
+
+class Heart {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.sprite = 'images/heart.png';
+    }
+
+    update(dt) {}
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 30, 50);
     }
 
 }
@@ -128,6 +142,9 @@ const player = new Player;
 
 // Place gem in game field
 const gem = new Gem;
+
+// Place all hearts objects in an array called life
+const life = [new Heart(10, 575), new Heart(40, 575), new Heart(70, 575), new Heart(100, 575), new Heart(130, 575)];
 
 
 // Arrow key movement.

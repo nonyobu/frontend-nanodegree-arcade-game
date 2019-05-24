@@ -25,7 +25,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 606;
+    canvas.height = 630;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -102,8 +102,11 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
-        gem.update();
+        player.update(dt);
+        gem.update(dt);
+        life.forEach(function(heart) {
+            heart.update(dt);
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -166,6 +169,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+
+        life.forEach(function(heart) {
+            heart.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
