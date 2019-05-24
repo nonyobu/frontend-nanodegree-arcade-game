@@ -53,6 +53,11 @@ class Enemy {
  * @description Player class
  */
 class Player {
+    /**
+     * 
+     * @param {integer} x 
+     * @param {integer} y 
+     */
     constructor(x, y) {
         // initial position
         this.x = 218;
@@ -89,7 +94,9 @@ class Player {
     }
 }
 
-
+/**
+ * @description Gem Class
+ */
 class Gem {
     constructor() {
         this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
@@ -116,7 +123,14 @@ class Gem {
 
 }
 
+/**
+ * @description Heart Class
+ */
 class Heart {
+    /**
+     * @param {integer} x 
+     * @param {integer} y 
+     */
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -161,7 +175,7 @@ KeyboardController({
     40: function() {
         player.handleInput(0, 1);
     }
-}, 15);
+}, 25);
 
 
 /**
