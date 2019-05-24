@@ -7,7 +7,7 @@ const speedValues = [2, 3, 4];
 /**
  * Array for Y values of enemy placement on game field
  */
-const fieldY = [70, 151, 231, 316];
+const fieldY = [61, 144, 227, 310];
 
 /**
  * Enemy class for player to avoid
@@ -44,8 +44,8 @@ class Enemy {
 class Player {
     constructor(x, y) {
         // initial position
-        this.x = 201;
-        this.y = 421;
+        this.x = 202;
+        this.y = 403;
         this.sprite = 'images/char-boy.png';
     }
 
@@ -57,52 +57,34 @@ class Player {
     }
 
     handleInput(moveX, moveY) {
-        const moveFactor = 10;
-        this.y += moveY * moveFactor;
+        const moveFactorY = 83;
+        const moveFactorX = 101;
+        this.y += moveY * moveFactorY;
         if (this.y <= -10) {
             this.y = -10;
         }
-        if (this.y >= 435) {
-            this.y = 435;
+        if (this.y >= 403) {
+            this.y = 403;
         }
-        this.x += moveX * moveFactor;
-        if (this.x <= -10) {
-            this.x = -10;
+        this.x += moveX * moveFactorX;
+        if (this.x <= 0) {
+            this.x = 0;
         }
-        if (this.x >= 412) {
-            this.x = 412;
+        if (this.x >= 404) {
+            this.x = 404;
         }
         console.log(`${this.x} ${this.y}`);
 
     }
 }
 
+// Objects instantiation
 
-
-// Now instantiate your objects.
-// Enemies
-/* let slowEnemy = new Enemy;
-let normalEnemy = new Enemy;
-let fastEnemy = new Enemy; */
 // Place all enemy objects in an array called allEnemies
 const allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy];
 // Place the player object in a variable called player
-let player = new Player;
+const player = new Player;
 
-
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-/* document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
-
-    player.handleInput(allowedKeys[e.keyCode]);
-}); */
 
 // Arrow key movement.
 KeyboardController({
@@ -118,7 +100,7 @@ KeyboardController({
     40: function() {
         player.handleInput(0, 1);
     }
-}, 40);
+}, 250);
 
 
 /**
