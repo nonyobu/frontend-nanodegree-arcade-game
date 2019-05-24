@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+        checkCollisions(dt);
     }
 
     /**
@@ -87,12 +87,22 @@ var Engine = (function(global) {
      * and as extra between player and gem
      */
     function checkCollisions() {
-        // checkCollisionPlayerEnemy
-        // checkCollisionPlayerGem
+        // Player and gem
         if (collides(player, gem)) {
-            console.log(`Player collided with gem at x=${player.x},y=${player.y}`);
-            gem.counter = 298;
+            console.log(`Player collided with Gem at Player(${player.x},${player.y}) and Gem (${gem.x},${gem.y})`);
+            gem.counter = gemMaxTime - 1;
+            score.value += 1;
         }
+        allEnemies.forEach(function(enemy) {
+            if (collides(enemy, player)) {
+                console.log(`Player collided with Enemy at Player(${player.x},${player.y}) and Enemy (${enemy.x},${enemy.y})`);
+                // reset player position
+                player.x = 218;
+                player.y = 442;
+                // remove one heart from life
+                life.pop();
+            }
+        });
     }
 
     function collides(a, b) {
@@ -118,6 +128,7 @@ var Engine = (function(global) {
         life.forEach(function(heart) {
             heart.update(dt);
         });
+        score.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -184,6 +195,8 @@ var Engine = (function(global) {
         life.forEach(function(heart) {
             heart.render();
         });
+
+        score.render();
     }
 
     /* This function does nothing but it could have been a good place to
