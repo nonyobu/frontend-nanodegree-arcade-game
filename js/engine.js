@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /**
@@ -89,6 +89,17 @@ var Engine = (function(global) {
     function checkCollisions() {
         // checkCollisionPlayerEnemy
         // checkCollisionPlayerGem
+        if (collides(player, gem)) {
+            console.log(`Player collided with gem at x=${player.x},y=${player.y}`);
+            gem.counter = 298;
+        }
+    }
+
+    function collides(a, b) {
+        if (a.x < b.x + b.width &&
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y + a.height > b.y) return true;
     }
 
     /* This is called by the update function and loops through all of the

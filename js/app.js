@@ -63,6 +63,8 @@ class Player {
         this.x = 218;
         this.y = 442;
         this.sprite = 'images/char-boy.png';
+        this.width = 58;
+        this.height = 72;
     }
 
     update(dt) {}
@@ -89,7 +91,7 @@ class Player {
         if (this.x >= 445) {
             this.x = 445;
         }
-        console.log(`${this.x} ${this.y}`);
+        console.log(`Coordenadas do Player: ${this.x},${this.y}`);
 
     }
 }
@@ -103,6 +105,8 @@ class Gem {
         this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
         this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
         this.counter = 0;
+        this.width = 58;
+        this.height = 72;
     }
 
     update(dt) {
@@ -111,7 +115,7 @@ class Gem {
             this.x = fieldX[Math.floor(Math.random() * fieldY.length)];
             this.y = fieldY[Math.floor(Math.random() * fieldY.length)];
             this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
-            //console.log(`${this.x} ${this.y}`);
+            console.log(`Coordenadas da Gem: ${this.x},${this.y}`);
 
             this.counter = 0;
         }
@@ -145,6 +149,16 @@ class Heart {
 
 }
 
+class Score {
+    constructor() {
+        this.value = 0;
+    }
+
+    render() {
+
+    }
+}
+
 
 // Objects instantiation
 
@@ -156,6 +170,8 @@ const player = new Player;
 
 // Place gem in game field
 const gem = new Gem;
+
+const score = new Score;
 
 // Place all hearts objects in an array called life
 const life = [new Heart(10, 575), new Heart(40, 575), new Heart(70, 575), new Heart(100, 575), new Heart(130, 575)];
