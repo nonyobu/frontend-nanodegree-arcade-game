@@ -14,7 +14,14 @@ const gemsY = [107, 190, 273, 356];
 // Array for gem images
 const gemImages = ['images/gem-green.png', 'images/gem-blue.png', 'images/gem-orange.png']
 
+// Max time from gems to apear in game
 const gemMaxTime = 300;
+
+class Game {
+    constructor() {
+        this.runningGame = false;
+    }
+}
 
 /**
  * Enemy class for player to avoid
@@ -161,8 +168,30 @@ class Score {
     }
 }
 
+class Modal {
+    constructor(overlay) {
+        this.overlay = overlay;
+        const closeButton = overlay.querySelector('.button-close')
+        closeButton.addEventListener('click', this.close.bind(this));
+        overlay.addEventListener('click', e => {
+            if (e.srcElement.id === this.overlay.id) {
+                this.close();
+            }
+        });
+    }
+    open() {
+        this.overlay.classList.remove('is-hidden');
+    }
+
+    close() {
+        this.overlay.classList.add('is-hidden');
+    }
+}
+
 
 // Objects instantiation
+
+const game = new Game;
 
 // Place all enemy objects in an array called allEnemies
 const allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy, new Enemy];
@@ -177,6 +206,20 @@ const score = new Score;
 
 // Place all hearts objects in an array called life
 const life = [new Heart(10, 575), new Heart(40, 575), new Heart(70, 575), new Heart(100, 575), new Heart(130, 575)];
+// Place hearts that are taken of life array when player "dies" with enemy
+const afterLife = [];
+
+const modal = new Modal(document.querySelector('.modal-overlay'));
+
+
+function startGame() {
+    game.runningGame = true;
+    modal.close();
+}
+
+const newGameBtn = document.getElementById('new-game');
+//newGameBtn.addEventListener('click', startGame());
+newGameBtn.onclick = function() { startGame() };
 
 
 // Arrow key movement.
@@ -195,12 +238,11 @@ KeyboardController({
     }
 }, 25);
 
-
 /**
  * Keyboard input with customisable repeat(set to 0 for no key repeat)
  * @param {Object} keys 
  * @param {Integer} repeat 
- * @see[stackoverflow] {@link https://stackoverflow.com/a/3691661}
+ * @see [stackoverflow]{@link https://stackoverflow.com/a/3691661}
  */
 function KeyboardController(keys, repeat) {
     // Lookup of key codes to timer ID, or null for no repeat

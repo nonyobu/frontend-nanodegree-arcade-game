@@ -87,29 +87,56 @@ var Engine = (function(global) {
      * and as extra between player and gem
      */
     function checkCollisions() {
-        // Player and gem
+        // Player and Gem
         if (collides(player, gem)) {
             console.log(`Player collided with Gem at Player(${player.x},${player.y}) and Gem (${gem.x},${gem.y})`);
             gem.counter = gemMaxTime - 1;
             score.value += 1;
         }
+
+
         allEnemies.forEach(function(enemy) {
+            // Enemies and Player
             if (collides(enemy, player)) {
                 console.log(`Player collided with Enemy at Player(${player.x},${player.y}) and Enemy (${enemy.x},${enemy.y})`);
                 // reset player position
                 player.x = 218;
                 player.y = 442;
                 // remove one heart from life
-                life.pop();
+                afterLife.push(life.pop());
+                checkEndGame();
+            }
+            // Enemies and Gem
+            if (collides(enemy, gem)) {
+                gem.counter = gemMaxTime - 1;
             }
         });
     }
 
+    /**
+     * @description Checks collision between two objects
+     * @param {object} a 
+     * @param {object} b 
+     * @see [stackoverflow]{@link https://stackoverflow.com/a/14062645}
+     */
     function collides(a, b) {
         if (a.x < b.x + b.width &&
             a.x + a.width > b.x &&
             a.y < b.y + b.height &&
             a.y + a.height > b.y) return true;
+    }
+
+    function checkEndGame() {
+        if (life.length <= 0) {
+            game.runningGame = false;
+            for (let i = 0; i < afterLife.length; i++) {
+                life.push(afterLife.pop());
+            }
+            let endTextContainer = doc.getElementById('message');
+            endTextContainer.textContent = `You've run out of lives and scored ${score.value} points`;
+            win.openModal = modal.open.bind(modal);
+            win.openModal();
+        }
     }
 
     /* This is called by the update function and loops through all of the
@@ -172,8 +199,9 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
-        renderEntities();
+        if (game.runningGame) {
+            renderEntities();
+        }
     }
 
     /* This function is called by the render function and is called on each game
@@ -181,21 +209,24 @@ var Engine = (function(global) {
      * on your enemy and player entities within app.js
      */
     function renderEntities() {
+        // render gem
+        gem.render();
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        gem.render();
-
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
+        //render player
         player.render();
 
+        // loop through all objects of "life" and call render on each one
         life.forEach(function(heart) {
             heart.render();
         });
 
+        // render score
         score.render();
     }
 
@@ -204,7 +235,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        win.openModal = modal.open.bind(modal);
+        win.openModal();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
