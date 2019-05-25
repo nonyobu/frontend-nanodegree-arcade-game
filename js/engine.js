@@ -95,7 +95,6 @@ var Engine = (function(global) {
             checkEndGame();
         }
 
-
         allEnemies.forEach(function(enemy) {
             // Enemies and Player
             if (collides(enemy, player)) {
@@ -144,7 +143,7 @@ var Engine = (function(global) {
                 endTextContainer.textContent = `You've run out of lives and scored ${score.value} points.`;
             }
 
-            // tranfer content of afterLife array to life array to display hearts of player's life
+            // transfer content of afterLife array to life array to display hearts of player's life
             while (afterLife.length > 0) {
                 life.push(afterLife.pop());
             }
@@ -216,6 +215,8 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+
+        // Check status of gem to render entities if it's in running mode
         if (game.running) {
             renderEntities();
         }

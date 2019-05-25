@@ -17,6 +17,9 @@ const gemImages = ['images/gem-green.png', 'images/gem-blue.png', 'images/gem-or
 // Max time from gems to apear in game
 const gemMaxTime = 300;
 
+/**
+ * @description Game class to control if game is running or not
+ */
 class Game {
     constructor() {
         this.running = false;
@@ -96,7 +99,6 @@ class Player {
         if (this.x >= 445) {
             this.x = 445;
         }
-        //console.log(`Coordenadas do Player: ${this.x},${this.y}`);
 
     }
 }
@@ -121,7 +123,6 @@ class Gem {
             this.y = gemsY[Math.floor(Math.random() * gemsY.length)];
             this.sprite = gemImages[Math.floor(Math.random() * gemImages.length)];
             this.counter = 0;
-            // console.log(`Coordenadas da Gem: ${this.x},${this.y}`);
         }
     }
 
@@ -153,6 +154,9 @@ class Heart {
 
 }
 
+/**
+ * @description Score Class
+ */
 class Score {
     constructor() {
         this.value = 0;
@@ -168,6 +172,10 @@ class Score {
     }
 }
 
+/**
+ * @description Modal
+ * @see [lowrey]{@link https://lowrey.me/modals-in-pure-es6-javascript/}
+ */
 class Modal {
     constructor(overlay) {
         this.overlay = overlay;
@@ -191,6 +199,7 @@ class Modal {
 
 // Objects instantiation
 
+// Control status of game
 const game = new Game;
 
 // Place all enemy objects in an array called allEnemies
@@ -202,11 +211,13 @@ const player = new Player;
 // Place gem in game field
 const gem = new Gem;
 
+// Control value of score
 const score = new Score;
 
 // Place all hearts objects in an array called life
 const life = [new Heart(10, 575), new Heart(40, 575), new Heart(70, 575), new Heart(100, 575), new Heart(130, 575)];
-// Place hearts that are taken of life array when player "dies" with enemy
+
+// Place and save hearts that are taken of life array when player "dies" with enemy
 const afterLife = [];
 
 const modal = new Modal(document.querySelector('.modal-overlay'));
@@ -218,9 +229,7 @@ function startGame() {
 }
 
 const newGameBtn = document.getElementById('new-game');
-//newGameBtn.addEventListener('click', startGame());
 newGameBtn.onclick = function() { startGame() };
-
 
 // Arrow key movement.
 KeyboardController({
