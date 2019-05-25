@@ -19,7 +19,7 @@ const gemMaxTime = 300;
 
 class Game {
     constructor() {
-        this.runningGame = false;
+        this.running = false;
     }
 }
 
@@ -213,7 +213,7 @@ const modal = new Modal(document.querySelector('.modal-overlay'));
 
 
 function startGame() {
-    game.runningGame = true;
+    game.running = true;
     modal.close();
 }
 

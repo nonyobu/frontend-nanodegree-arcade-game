@@ -92,6 +92,7 @@ var Engine = (function(global) {
             console.log(`Player collided with Gem at Player(${player.x},${player.y}) and Gem (${gem.x},${gem.y})`);
             gem.counter = gemMaxTime - 1;
             score.value += 1;
+            checkEndGame();
         }
 
 
@@ -107,9 +108,9 @@ var Engine = (function(global) {
                 checkEndGame();
             }
             // Enemies and Gem
-            if (collides(enemy, gem)) {
-                gem.counter = gemMaxTime - 1;
-            }
+            // if (collides(enemy, gem)) {
+            //     gem.counter = gemMaxTime - 1;
+            // }
         });
     }
 
@@ -127,15 +128,31 @@ var Engine = (function(global) {
     }
 
     function checkEndGame() {
-        if (life.length <= 0) {
-            game.runningGame = false;
-            for (let i = 0; i < afterLife.length; i++) {
+        if (life.length <= 0 || score.value >= 10) {
+            // stop game animation
+            game.running = false;
+
+            // set text of end game.
+            let endTextContainer = doc.getElementById('message');
+            // winning text
+            if (score.value >= 10) {
+                endTextContainer.textContent = `Congratulations! You've reached max score of ${score.value} points!`;
+            }
+
+            // loosing text
+            if (life.length <= 0) {
+                endTextContainer.textContent = `You've run out of lives and scored ${score.value} points.`;
+            }
+
+            // tranfer content of afterLife array to life array to display hearts of player's life
+            while (afterLife.length > 0) {
                 life.push(afterLife.pop());
             }
-            let endTextContainer = doc.getElementById('message');
-            endTextContainer.textContent = `You've run out of lives and scored ${score.value} points`;
-            win.openModal = modal.open.bind(modal);
-            win.openModal();
+
+            // set score to 0
+            score.value = 0;
+
+            reset();
         }
     }
 
@@ -199,7 +216,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-        if (game.runningGame) {
+        if (game.running) {
             renderEntities();
         }
     }
