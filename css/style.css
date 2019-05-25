@@ -37,3 +37,12 @@ body {
     background: #fff;
     z-index: 9999;
 }
+
+#new-game {
+    font-size: 3em;
+    background-color: green;
+}
+
+#message {
+    font-size: 2em;
+}
