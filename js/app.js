@@ -143,7 +143,7 @@ class Heart {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.sprite = 'images/heart.png';
+        this.sprite = 'images/Heart.png';
     }
 
     update(dt) {}

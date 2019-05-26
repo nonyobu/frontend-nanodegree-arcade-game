@@ -266,7 +266,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/heart.png',
+        'images/Heart.png',
         'images/gem-blue.png',
         'images/gem-orange.png',
         'images/gem-green.png'
